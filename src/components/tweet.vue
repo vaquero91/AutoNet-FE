@@ -11,7 +11,7 @@
             </span>
         </span>
         <span>
-            <v-btn>+ Info</v-btn>
+            <v-btn color="blue" :class="{'mdBtn':$vuetify.breakpoint.mdAndUp, 'xsBtn':$vuetify.breakpoint.xsOnlt }">+ Info</v-btn>
         </span>
     </v-card>
 </template>
@@ -28,10 +28,24 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 2cm;
 }
 .middle {
     display: flex;
     flex-direction: row;
     align-items: stretch;
+}
+ .mdBtn {
+    width:70px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.sxBtn {
+    width:20px;
+    height: 250px;
+    background-color: blue;
+    color: blue;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 </style>
