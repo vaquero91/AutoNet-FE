@@ -1,5 +1,5 @@
 <template>
-    <v-card id="card">
+    <v-card  :class="{'xs': $vuetify.breakpoint.xsOnlt, 'md': $vuetify.breakpoint.smAndUp}">
         <span>
             <div> Fecha: {{tweet.fecha}}</div>
         </span>
@@ -24,7 +24,16 @@ export default {
 </script>
 
 <style scoped>
-#card {
+
+.md {
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2cm;
+}
+.xs {
+    width:100px;
     display: flex;
     flex-direction: column;
     align-items: center;
