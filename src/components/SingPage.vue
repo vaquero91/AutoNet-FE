@@ -4,36 +4,52 @@
             <div class = "titulo">
                 <h2>Bienvenido !!</h2>
             </div>
-            <v-text-field label="Nombre" solo />
-            <v-text-field label="Contraseña" solo />
+            <v-text-field v-model="usuario.email" label="Email" solo />
+            <v-text-field v-model="usuario.password" label="Contraseña" solo />
         </v-form>
         <v-form class="SignBox" v-if="seen">
             <div class = "titulo">
                 <h2>Llena estos datos</h2>
             </div>
-            <v-text-field label="Nombre" hint="Como te podemos llamar?" solo />
-            <v-text-field label="Email" hint="Ejemplo = naruto@gmail.com" solo />
-            <v-text-field label="Contraseña" hint="Minimo 8 caracteres" solo />
+            <v-text-field v-model="usuario.nombre" label="Nombre" hint="Como te podemos llamar?" solo />
+            <v-text-field v-model="usuario.email" label="Email" hint="Ejemplo = naruto@gmail.com" solo />
+            <v-text-field v-model="usuario.password" label="Contraseña" hint="Minimo 8 caracteres" solo />
         </v-form>
         <div class = "btnBox">
-            <v-btn class= "btn" color = "blue">Log In</v-btn>
+            <v-btn class= "btn" color = "blue" @click="onLogIn">Log In</v-btn>
             <v-btn class= "btn" @click="this.showForm">Sign Up</v-btn>
+            <v-btn class= "btn" @click="this.onSignUp">Send</v-btn>
         </div>
     </v-card>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
     name:'SingPage',
+    computed: mapGetters(['getState']),
     data: function () {
         return {
             seen: false,
+
+            usuario: {
+                "email": "",
+                "password": "",
+                "nombre": ""
+            }
         }
     },
     methods: {
+        ...mapActions([ 'newUser', 'login']),
         showForm: function(){
             this.seen = (this.seen === false) ? true:false;
-        }
+        },
+        onLogIn(){
+            this.login(this.usuario);
+        },
+        onSignUp(){ // TODO: agregar validacion que todos los campos esten lledos
+            this.newUser(this.usuario);
+        },
     }
 }
 </script>
