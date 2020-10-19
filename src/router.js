@@ -1,19 +1,19 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-// Components
 
-import verTweets from './components/verTweets';
-import SignPage from './components/SingPage';
+// Components
+import HomePage from './pages/HomePage';
+import LandingPage from './pages/LandingPage';
 Vue.use(Router);
 
 export const router = new Router({
     mode: 'history',
     routes: [
-      { path: '/', component: verTweets },
-      { path: '/login', component: SignPage },
+      { path: '/', component: HomePage },
+      { path: '/login', component: LandingPage },
   
       // otherwise redirect to home
-      { path: '*', redirect: '/' }
+      { path: '*', redirect: '/login' }
     ]
   });
   
@@ -29,3 +29,4 @@ export const router = new Router({
   
     next();
   })
+  

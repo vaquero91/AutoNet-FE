@@ -1,26 +1,16 @@
 <template>
   <v-app>
-    <Header/>
     <v-main >
-    <!--  <verTweets class= "mainBox"/> -->
-      <SignPage />
+    <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
-//import verTweets from './components/verTweets';
-import Header from './components/Header';
-import SignPage from './components/SingPage';
+
 
 export default {
   name: 'App',
-
-  components: {
-    //verTweets,
-    Header,
-    SignPage
-  },
 
   data: () => ({
     //

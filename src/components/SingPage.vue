@@ -16,15 +16,16 @@
             <v-text-field v-model="usuario.password" label="Contraseña" hint="Minimo 8 caracteres" solo />
         </v-form>
         <div class = "btnBox">
-            <v-btn class= "btn" color = "blue" @click="onLogIn">Log In</v-btn>
-            <v-btn class= "btn" @click="this.showForm">Sign Up</v-btn>
-            <v-btn class= "btn" @click="this.onSignUp">Send</v-btn>
+            <v-btn class= "btn" color = "blue" @click="onLogIn" v-if="!seen">Log In</v-btn>
+            <v-btn class= "btn" @click="this.showForm" v-if="!seen">Sign Up</v-btn>
+            <v-btn class= "btn" @click="this.onSignUp" v-if="seen">Crear</v-btn>
         </div>
     </v-card>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+
 export default {
     name:'SingPage',
     computed: mapGetters(['getState']),
@@ -45,9 +46,9 @@ export default {
             this.seen = (this.seen === false) ? true:false;
         },
         onLogIn(){
-            this.login(this.usuario);
+            this.login(this.usuario)
         },
-        onSignUp(){ // TODO: agregar validacion que todos los campos esten lledos
+        onSignUp(){ // TODO: agregar validacion que todos los campos esten llenados
             this.newUser(this.usuario);
         },
     }

@@ -1,13 +1,16 @@
 import axios from 'axios';
 import { handleResponse } from '../../tools';
-
+import { router } from '../../router';
 
 
 const state = {
+    usuario: {
     nombre:"",
     email:"",
     password: "",
     token: ""
+    },
+    logedIn : false,
 };
 const getters = {
     getState: (state) => state.token,
@@ -36,9 +39,11 @@ const actions = { // llamadas al backend
                     localStorage.setItem('user', JSON.stringify(user));
                     console.log(user);
                     commit('setUsuario',user);
+                    router.push('/');
                 }
             });
     },
+
     async newUser({ commit }, usuario){
         console.log(usuario);
         const response = await axios.post('http://localhost:8081/nuevoUsuario', { usuario });
@@ -49,7 +54,10 @@ const actions = { // llamadas al backend
     },
 };
 const mutations = {
-    setUsuario: (state, usuario) => state = usuario,
+    setUsuario: (state, usuario) => {
+        state.usuario = usuario;
+        state.logedIn = true;
+    },
     setNombre: (state, nombre) => state.nombre = nombre,
 };
 
