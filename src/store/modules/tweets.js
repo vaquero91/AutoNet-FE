@@ -17,7 +17,9 @@ const state = {
 const getters = {
     allTweets: (state) => state.tweets
 };
-const actions = {};
+const actions = { // Llamadas al backend
+
+};
 const mutations = {};
 
 export default {

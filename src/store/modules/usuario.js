@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { handleResponse } from '../../tools';
 import { router } from '../../router';
 
@@ -16,7 +15,6 @@ const getters = {
     getState: (state) => state.token,
 };
 const actions = { // llamadas al backend 
- // TODO: aprender a usar axios
     async login({commit}, usuario){
         const requestOptions = {
             method: 'POST',
@@ -37,7 +35,6 @@ const actions = { // llamadas al backend
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     user.email = usuario.email;
                     localStorage.setItem('user', JSON.stringify(user));
-                    console.log(user);
                     commit('setUsuario',user);
                     router.push('/');
                 }
@@ -45,13 +42,28 @@ const actions = { // llamadas al backend
     },
 
     async newUser({ commit }, usuario){
-        console.log(usuario);
-        const response = await axios.post('http://localhost:8081/nuevoUsuario', { usuario });
-        console.log(await response.data);
-        if(await response.data === 'Success'){
-            commit('setNombre', usuario.nombre);
-        } else console.log('Error');
+        const requestOptions = {
+            method: 'POST',
+            'Access-Control-Allow-Origin':'http://localhost:8081/',
+            'Access-Control-Allow-Methods': 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
+            credentials: 'same-origin',
+            mode: 'cors',
+            dataType:'jsonp',
+            body: JSON.stringify(usuario),
+        };
+        fetch('http://localhost:8081/nuevoUsuario', requestOptions).then(handleResponse)
+            .then(usuario => {
+                localStorage.setItem('user', JSON.stringify(usuario));
+                commit('setUsuario',usuario);
+                router.push('/');
+            });
     },
+
+    async logOutAct({commit}){
+        commit('logout');
+        router.push('/login');
+    }
 };
 const mutations = {
     setUsuario: (state, usuario) => {
@@ -59,6 +71,17 @@ const mutations = {
         state.logedIn = true;
     },
     setNombre: (state, nombre) => state.nombre = nombre,
+    logout: (state) => {
+        var logOutUs = {
+            nombre:"",
+            email:"",
+            password: "",
+            token: ""
+        }
+        state.logedIn = false;
+        state.usuario = logOutUs;
+        localStorage.removeItem('user');
+    } 
 };
 
 export default {
