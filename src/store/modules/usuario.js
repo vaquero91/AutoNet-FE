@@ -59,6 +59,11 @@ const actions = { // llamadas al backend
                 router.push('/');
             });
     },
+
+    async logOutAct({commit}){
+        commit('logout');
+        router.push('/login');
+    }
 };
 const mutations = {
     setUsuario: (state, usuario) => {
@@ -66,6 +71,17 @@ const mutations = {
         state.logedIn = true;
     },
     setNombre: (state, nombre) => state.nombre = nombre,
+    logout: (state) => {
+        var logOutUs = {
+            nombre:"",
+            email:"",
+            password: "",
+            token: ""
+        }
+        state.logedIn = false;
+        state.usuario = logOutUs;
+        localStorage.removeItem('user');
+    } 
 };
 
 export default {
