@@ -1,19 +1,18 @@
 <template>
 <div>
     <Header />
-    <verTweets />
+    <CuentasMenu />
 </div>
 </template>
 
 <script>
 import  Header  from '../components/Header';
-import  verTweets from '../components/verTweets';
-
+import CuentasMenu from '../components/CuentasMenu';
 export default {
     name: 'HomePage',
     components: {
         Header,
-        verTweets,
+        CuentasMenu,
     },
 }
 </script>    

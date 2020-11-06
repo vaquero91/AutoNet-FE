@@ -32,7 +32,6 @@ export default {
     data: function () {
         return {
             seen: false,
-
             usuario: {
                 "email": "",
                 "password": "",
